@@ -1,0 +1,4 @@
+venv
+tests
+requirements.test.txt
+.idea
