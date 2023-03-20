@@ -1,0 +1,1 @@
+DOMAIN = "sonnen_batterie"

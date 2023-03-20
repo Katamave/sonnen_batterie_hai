@@ -1,0 +1,11 @@
+{
+  "codeowners": ["@katamave"],
+  "config_flow": false,
+  "dependencies": [],
+  "documentation": "https://github.com/Katamave/sonnen_batterie_hai",
+  "domain": "sonnen_batterie",
+  "iot_class": "local_polling",
+  "name": "Sonnen Batterie Integration",
+  "requirements": [],
+  "version": "1.0.0"
+}
