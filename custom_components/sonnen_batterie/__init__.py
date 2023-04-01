@@ -1,7 +1,10 @@
 from homeassistant import core
+from .const import DOMAIN
 
 
-async def async_setup(hass: core.HomeAssistant, config: dict) -> bool:
-    """Set up the Sonnen Batterie Integration component."""
-    # @TODO: Add setup code.
+def setup(hass, config):
+    """Your controller/hub specific code."""
+    # Data that you want to share with your platforms
+    hass.data[DOMAIN] = {"x": 0}
+    hass.helpers.discovery.load_platform("sensor", DOMAIN, {}, config)
     return True
