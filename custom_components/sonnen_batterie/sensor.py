@@ -62,6 +62,7 @@ async def async_setup_platform(
     data = Sonnen(config.get(CONF_ACCESS_TOKEN),
                   config.get(CONF_IP_ADDRESS),
                   logger=_LOGGER)
+    _LOGGER.info(f'IP {CONF_IP_ADDRESS}, ACCES {CONF_ACCESS_TOKEN}')
     await data.async_update()
     sensors = [SonnenSensor(data, sensor_key, values) for sensor_key, values in DEFAULT_SENSORS.items()]
 
