@@ -24,11 +24,12 @@ from homeassistant.helpers.typing import HomeAssistantType, ConfigType, Discover
 from sonnen_api_v2 import Sonnen
 
 # Import constants here
-from .const import DOMAIN, BATTERY_STATUS, SOC
+from .const import DOMAIN, BATTERY_STATUS, SOC, CONSUMPTION
 
 DEFAULT_SENSORS = {
     BATTERY_STATUS: ['Battery status', '', 'mdi:battery-check', ''],
-    SOC: ['SOC', PERCENTAGE, 'mdi:mdi:battery-charging-60', SensorDeviceClass.BATTERY]
+    SOC: ['SOC', PERCENTAGE, 'mdi:mdi:battery-charging-60', SensorDeviceClass.BATTERY],
+    CONSUMPTION: ['Consuption', 'mdi:mdi:battery-charging-60', SensorDeviceClass.POWER]
 
 }
 
@@ -117,6 +118,9 @@ class SonnenSensor(Entity):
             self.state = self._data.u_soc()
         if self._sensor_key == BATTERY_STATUS:
             self.state = self._data.system_status()
+        if self._sensor_key == CONSUMPTION:
+            self.state = self._data.consumption()
+
 
         _LOGGER.info(f'Sensor {self._sensor_key} state: {self.state}')
 
