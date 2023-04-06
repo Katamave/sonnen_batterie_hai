@@ -63,7 +63,7 @@ async def async_setup_platform(
                   config.get(CONF_IP_ADDRESS),
                   logger=_LOGGER)
     await data.async_update()
-    sensors = [SonnenSensor(data, sensor_key, values) for sensor_key, values in DEFAULT_SENSORS]
+    sensors = [SonnenSensor(data, sensor_key, values) for sensor_key, values in DEFAULT_SENSORS.items()]
 
     async_add_entities(sensors, update_before_add=True)
 
