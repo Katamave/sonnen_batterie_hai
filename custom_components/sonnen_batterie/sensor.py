@@ -36,7 +36,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_ACCESS_TOKEN): cv.string,
         vol.Required(CONF_IP_ADDRESS): cv.string,
-        vol.Required(CONF_SCAN_INTERVAL): cv.positive_int,
+        vol.Optional(CONF_SCAN_INTERVAL): cv.positive_int,
     }
 )
 
@@ -59,7 +59,7 @@ async def async_setup_platform(
         discovery_info: Optional[DiscoveryInfoType] = None) -> None:
     """Set up the sensor platform."""
 
-    data = Sonnen(config.get(CONF_IP_ADDRESS),
+    data = Sonnen(config.get(CONF_ACCESS_TOKEN),
                   config.get(CONF_IP_ADDRESS),
                   logger=_LOGGER)
     await data.async_update()
