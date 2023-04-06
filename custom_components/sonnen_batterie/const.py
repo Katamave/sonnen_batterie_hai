@@ -1,1 +1,6 @@
-DOMAIN = "sonnen_batterie"
+DOMAIN = 'sonnen_batterie'
+
+
+# Constants keys for sensors
+SOC = 'state_of_charge'
+BATTERY_STATUS = 'status'
