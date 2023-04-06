@@ -29,7 +29,7 @@ from .const import DOMAIN, BATTERY_STATUS, SOC, CONSUMPTION
 DEFAULT_SENSORS = {
     BATTERY_STATUS: ['Battery status', '', 'mdi:battery-check', ''],
     SOC: ['SOC', PERCENTAGE, 'mdi:mdi:battery-charging-60', SensorDeviceClass.BATTERY],
-    CONSUMPTION: ['Consuption', 'mdi:mdi:battery-charging-60', SensorDeviceClass.POWER]
+    CONSUMPTION: ['Consuption', '', 'mdi:mdi:battery-charging-60', SensorDeviceClass.POWER]
 
 }
 
