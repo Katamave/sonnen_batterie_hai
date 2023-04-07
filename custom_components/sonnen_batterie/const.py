@@ -5,3 +5,6 @@ DOMAIN = 'sonnen_batterie'
 SOC = 'state_of_charge'
 BATTERY_STATUS = 'status'
 CONSUMPTION = 'consumption'
+
+# Battery constants
+CELL_TEMP = 'cell_temp'

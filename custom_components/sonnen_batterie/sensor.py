@@ -13,6 +13,7 @@ from homeassistant.const import (
     CONF_IP_ADDRESS,
     CONF_SCAN_INTERVAL,
     PERCENTAGE,
+    TEMP_CELSIUS,
 )
 
 from homeassistant.util import Throttle
@@ -24,12 +25,13 @@ from homeassistant.helpers.typing import HomeAssistantType, ConfigType, Discover
 from sonnen_api_v2 import Sonnen
 
 # Import constants here
-from .const import DOMAIN, BATTERY_STATUS, SOC, CONSUMPTION
+from .const import DOMAIN, BATTERY_STATUS, SOC, CONSUMPTION, CELL_TEMP
 
 DEFAULT_SENSORS = {
     BATTERY_STATUS: ['Battery status', '', 'mdi:battery-check', ''],
     SOC: ['SOC', PERCENTAGE, 'mdi:mdi:battery-charging-60', SensorDeviceClass.BATTERY],
-    CONSUMPTION: ['Consuption', '', 'mdi:mdi:battery-charging-60', SensorDeviceClass.POWER]
+    CONSUMPTION: ['Consuption', '', 'mdi:flash', SensorDeviceClass.POWER],
+    CELL_TEMP: ['Cell temperature', TEMP_CELSIUS, 'mdi:temperature-celsius', SensorDeviceClass.TEMPERATURE]
 
 }
 
@@ -128,6 +130,8 @@ class SonnenSensor(Entity):
             self.state = self._data.system_status()
         elif self._sensor_key == CONSUMPTION:
             self.state = self._data.consumption()
+        elif self._sensor_key == CELL_TEMP:
+            self.state = self._data.battery_max_cell_temp()
 
         _LOGGER.info(f'Sensor {self._sensor_key} state: {self.state}')
 
