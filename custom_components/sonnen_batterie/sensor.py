@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import logging
 from datetime import timedelta
-from typing import Callable, Optional
+from typing import Callable, Optional, Any
 
 import voluptuous as vol
 
@@ -112,17 +112,24 @@ class SonnenSensor(Entity):
     def state(self, state):
         self._state = state
 
+    def state_attributes(self) -> dict[str, Any] | None:
+        attrs = {}
+        if self._last_updated is not None:
+            attrs['Last Updated'] = self._last_updated
+        return attrs
+
     async def async_update(self):
-        await update_data(self._data)
-        if self._sensor_key == SOC:
-            self.state = self._data.u_soc()
-        if self._sensor_key == BATTERY_STATUS:
-            self.state = self._data.system_status()
-        if self._sensor_key == CONSUMPTION:
-            self.state = self._data.consumption()
+        data = await update_data(self._data)
+        if data:
+            self._last_updated = self._data.last_updated
+            if self._sensor_key == SOC:
+                self.state = self._data.u_soc()
+            elif self._sensor_key == BATTERY_STATUS:
+                self.state = self._data.system_status()
+            elif self._sensor_key == CONSUMPTION:
+                self.state = self._data.consumption()
 
-
-        _LOGGER.info(f'Sensor {self._sensor_key} state: {self.state}')
+            _LOGGER.info(f'Sensor {self._sensor_key} state: {self.state}')
 
 
 
