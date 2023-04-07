@@ -60,7 +60,7 @@ async def async_setup_platform(
         discovery_info: Optional[DiscoveryInfoType] = None) -> None:
     """Set up the sensor platform."""
 
-    ip = config[CONF_IP_ADDRESS]
+    ip = '192.168.188.115'#config[CONF_IP_ADDRESS]
     token = config[CONF_ACCESS_TOKEN]
     _LOGGER.info(f'{DOMAIN} IP {ip}, ACCESS {token}')
     data = Sonnen(ip_address=ip, auth_token=token, logger=_LOGGER)
