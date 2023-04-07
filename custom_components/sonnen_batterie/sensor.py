@@ -112,7 +112,7 @@ class SonnenSensor(Entity):
     def state(self, state):
         self._state = state
 
-    def state_attributes(self) -> dict[str, Any] | None:
+    def device_state_attributes(self) -> dict[str, Any] | None:
         attrs = {}
         if self._last_updated is not None:
             attrs['Last Updated'] = self._last_updated
