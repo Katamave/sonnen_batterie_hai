@@ -119,17 +119,17 @@ class SonnenSensor(Entity):
         return attrs
 
     async def async_update(self):
-        data = await update_data(self._data)
-        if data:
-            self._last_updated = self._data.last_updated
-            if self._sensor_key == SOC:
-                self.state = self._data.u_soc()
-            elif self._sensor_key == BATTERY_STATUS:
-                self.state = self._data.system_status()
-            elif self._sensor_key == CONSUMPTION:
-                self.state = self._data.consumption()
+        await update_data(self._data)
 
-            _LOGGER.info(f'Sensor {self._sensor_key} state: {self.state}')
+        self._last_updated = self._data.last_updated
+        if self._sensor_key == SOC:
+            self.state = self._data.u_soc()
+        elif self._sensor_key == BATTERY_STATUS:
+            self.state = self._data.system_status()
+        elif self._sensor_key == CONSUMPTION:
+            self.state = self._data.consumption()
+
+        _LOGGER.info(f'Sensor {self._sensor_key} state: {self.state}')
 
 
 
