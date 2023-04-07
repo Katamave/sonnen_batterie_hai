@@ -6,6 +6,6 @@
   "domain": "sonnen_batterie",
   "iot_class": "local_polling",
   "name": "Sonnen Batterie Integration",
-  "requirements": ["sonnen-api-v2>=0.3.6"],
+  "requirements": ["sonnen-api-v2>=0.3.8"],
   "version": "1.0.1"
 }
