@@ -67,7 +67,7 @@ async def async_setup_platform(
     await data.async_update()
     sensors = [SonnenSensor(data, sensor_key, values) for sensor_key, values in DEFAULT_SENSORS.items()]
 
-    async_add_entities(sensors, update_before_add=True)
+    async_add_entities(sensors, update_before_add=False)
 
 
 class SonnenSensor(Entity):
