@@ -27,11 +27,12 @@ from sonnen_api_v2 import Sonnen
 # Import constants here
 from .const import DOMAIN, BATTERY_STATUS, SOC, CONSUMPTION, CELL_TEMP
 
+# Default sensors of the Battery
 DEFAULT_SENSORS = {
     BATTERY_STATUS: ['Battery status', '', 'mdi:battery-check', ''],
     SOC: ['SOC', PERCENTAGE, 'mdi:mdi:battery-charging-60', SensorDeviceClass.BATTERY],
-    CONSUMPTION: ['Consuption', '', 'mdi:flash', SensorDeviceClass.POWER],
-    CELL_TEMP: ['Cell temperature', TEMP_CELSIUS, 'mdi:temperature-celsius', SensorDeviceClass.TEMPERATURE]
+    CONSUMPTION: ['Consumption', '', 'mdi:flash', SensorDeviceClass.POWER],
+    CELL_TEMP: ['Max cell temperature', TEMP_CELSIUS, 'mdi:temperature-celsius', SensorDeviceClass.TEMPERATURE]
 
 }
 
@@ -51,6 +52,7 @@ _LOGGER = logging.getLogger(__name__)
 
 @Throttle(SCAN_INTERVAL)
 async def update_data(sonnen: Sonnen):
+    """Throttled update method of the battery"""
     await sonnen.async_update()
     _LOGGER.info(f'{DOMAIN}: sensor data updated')
 
@@ -64,7 +66,6 @@ async def async_setup_platform(
 
     ip = config[CONF_IP_ADDRESS]
     token = config[CONF_ACCESS_TOKEN]
-    _LOGGER.info(f'{DOMAIN} IP {ip}, ACCESS {token}')
     data = Sonnen(ip_address=ip, auth_token=token, logger=_LOGGER)
     await data.async_update()
     sensors = [SonnenSensor(data, sensor_key, values) for sensor_key, values in DEFAULT_SENSORS.items()]
@@ -134,9 +135,3 @@ class SonnenSensor(Entity):
             self.state = self._data.battery_max_cell_temp()
 
         _LOGGER.info(f'Sensor {self._sensor_key} state: {self.state}')
-
-
-
-
-
-
